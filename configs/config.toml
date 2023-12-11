@@ -1,0 +1,4 @@
+[command]
+execute = "dir"
+[whoami]
+execute = "whoami"
