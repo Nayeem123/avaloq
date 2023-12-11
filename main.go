@@ -23,7 +23,7 @@ func main() {
 	r.HandleFunc("/api/login", api.Login).Methods("POST")
 	r.HandleFunc("/api/whoami", api.WhoAmI).Methods("GET")
 	// Redirect root to Swagger UI
-	
+
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/swaggerui/index.html?url=/api/openapi.yaml", http.StatusSeeOther)
 	})

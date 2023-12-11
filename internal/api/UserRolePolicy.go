@@ -5,56 +5,57 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/open-policy-agent/opa/rego"
 )
 
-const policy = `
-package example
+// const policy = `
+// package example
 
-default allow = false
+// default allow = false
 
-allow  {
-    input.user.role=="admin"
-}
-`
-const inputData = `
-{
-    "user":{
-        "role": "admin"
-    }
-    
-}
-`
+// allow  {
+//     input.user.role=="admin"
+// }
+// `
+// const inputData = `
+// {
+//     "user":{
+//         "role": "admin"
+//     }
+
+// }
+// `
 
 func ExecuteUserRolePolicy() bool {
 
-	//policyBytes, err := os.ReadFile("./policy/userRole.rego")
+	policyBytes, err := os.ReadFile("./policy/userRole.rego")
 
-	// if err != nil {
+	if err != nil {
 
-	// 	fmt.Println("Error reading policy:", err)
+		fmt.Println("Error reading policy:", err)
 
-	// 	return false
+		return false
 
-	// }
+	}
 
-	// policy := string(policyBytes)
+	policy := string(policyBytes)
 
 	//fmt.Println("policy = ", policy)
 	// Read the input data from the JSON file
 
-	// inputDataBytes, err := os.ReadFile("./policy/userRoleInput.json")
+	inputDataBytes, err := os.ReadFile("./policy/userRoleInput.json")
 
-	// if err != nil {
+	if err != nil {
 
-	// 	fmt.Println("Error reading input data:", err)
+		fmt.Println("Error reading input data:", err)
 
-	// 	return false
+		return false
 
-	// }
+	}
 
-	// inputData := string(inputDataBytes)
+	inputData := string(inputDataBytes)
 
 	//fmt.Println("inputData = ", inputData)
 	// Create a Rego query and policy evaluation
