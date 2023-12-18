@@ -10,6 +10,16 @@ import (
 )
 
 func main() {
+	// // Load the SSL certificate and private key
+	// cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// // Create a TLS configuration
+	// tlsConfig := &tls.Config{
+	// 	Certificates: []tls.Certificate{cert},
+	// }
+
 	r := mux.NewRouter()
 
 	// Serve OpenAPI Document
@@ -19,7 +29,7 @@ func main() {
 
 	// Serve Swagger UI
 	r.PathPrefix("/swaggerui/").Handler(http.StripPrefix("/swaggerui/", http.FileServer(http.Dir("./third_party/swaggerui/"))))
-	r.HandleFunc("/api/v1/execute", api.ExecuteCommandHandler).Methods("POST")
+	r.HandleFunc("/api/dirlist", api.ExecuteCommandHandler).Methods("POST")
 	r.HandleFunc("/api/login", api.Login).Methods("POST")
 	r.HandleFunc("/api/whoami", api.WhoAmI).Methods("GET")
 	// Redirect root to Swagger UI
@@ -33,6 +43,19 @@ func main() {
 
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	// // Create an HTTPS server
+	// server := &http.Server{
+	// 	Addr:      ":8080",
+	// 	Handler:   r,
+	// 	TLSConfig: tlsConfig,
+	// }
+	// Start the server
+	// log.Println("Server is listening on port 8080...")
+	// err = server.ListenAndServeTLS("", "")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 }
 
 func Health(w http.ResponseWriter, r *http.Request) {

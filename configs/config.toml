@@ -1,4 +1,4 @@
 [command]
-execute = "dir"
+dirlist = "dir"
 [whoami]
 execute = "whoami"
