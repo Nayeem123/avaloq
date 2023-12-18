@@ -55,11 +55,11 @@ func WhoAmI(w http.ResponseWriter, r *http.Request) {
 }
 
 func ExecuteCommandHandler(w http.ResponseWriter, r *http.Request) {
-	res := Authentication(w, r)
-	if !bool(res) {
-		http.Error(w, "API Authentication Failed , Pass valid Token", http.StatusUnauthorized)
-		return
-	}
+	// res := Authentication(w, r)
+	// if !bool(res) {
+	// 	http.Error(w, "API Authentication Failed , Pass valid Token", http.StatusUnauthorized)
+	// 	return
+	// }
 	isAdmin := ExecuteUserRolePolicy
 	//fmt.Println("policy = ", bool(isAdmin()))
 	if bool(isAdmin()) != true {
@@ -89,7 +89,7 @@ func ExecuteCommandHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	command := config.Get("command.execute").(string)
+	command := config.Get("command.dirlist").(string)
 
 	executableCommand := command + " " + path.CurrentPath
 	fmt.Println("Command that to run: ", executableCommand)
